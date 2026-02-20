@@ -1,44 +1,71 @@
-#include <Arduino.h>
 /**
- * @file main.ino
- * @brief Embedded Light Intensity Monitoring using LDR
- * @author YOUR_NAME
- * @date YYYY-MM-DD
+ * @file main.cpp
+ * @brief Automatic light intensity monitoring - Arduino sketch using an LDR
  *
- * @details
- * Reads analog brightness data from LDR sensor
- * and displays structured output via Serial Monitor.
+ * This sketch reads an analog value from an LDR (light-dependent resistor)
+ * connected to the analog pin defined by LDR_PIN, converts it into a
+ * percentage representing light intensity, and prints the raw and
+ * percentage values to the serial console at 500 ms intervals.
+ *
+ * The code is intentionally small and clear for educational and prototyping
+ * use. It demonstrates analogRead, basic mapping, and serial output.
+ *
+ * @author Mohan Sharma
+ * @date 2026-02-17
+ * @version 1.0
  */
 
- // TODO 1:
- // Define LDR analog pin (Use A0)
+#include <Arduino.h>
 
- // TODO 2:
- // Create variable to store sensor reading
+/**
+ * @def LDR_PIN
+ * @brief Analog pin to which the LDR (voltage divider) is connected.
+ *
+ * The LDR should be connected as part of a voltage divider so that the
+ * analog input reads a voltage between 0 and Vcc. Use A0 (LDR_PIN) by default.
+ */
+#define LDR_PIN A0
 
+/**
+ * @brief Arduino initialization routine.
+ *
+ * Sets up the serial port and configures the LDR pin as an input. Prints a
+ * single banner line to the serial console to indicate the sketch has started.
+ *
+ * @note This function is called once by the Arduino framework during startup.
+ */
 void setup() {
+ // write your initialization code here
+ Serial.begin(9600);
+ pinMode(LDR_PIN,INPUT);
+ Serial.println("LDR test");
 
-    // TODO 3:
-    // Initialize Serial communication (9600 baud rate)
-
-    // TODO 4:
-    // Print system initialization message
 }
 
+/**
+ * @brief Main Arduino loop that reads and reports light intensity.
+ *
+ * Reads the raw analog value from the LDR pin using analogRead(). The raw
+ * reading (0..1023) is converted to a simple percentage (0..100) using
+ * map(). The raw value and percentage are printed to the serial console.
+ * The loop then waits 500 ms before repeating.
+ *
+ * @detail
+ * - Raw range: 0 (dark) .. 1023 (bright) depending on wiring and divider.
+ * - The map() call inverts the percentage so that 0 -> 100% (bright) and
+ *   1023 -> 0% (dark) to provide an intuitive "Light: X%" readout.
+ *
+ * @note Adjust the map() parameters if your voltage divider produces a
+ * different range or polarity.
+ */
 void loop() {
-
-    // TODO 5:
-    // Read analog value from LDR
-
-    // TODO 6:
-    // Print raw ADC value
-
-    // TODO 7:
-    // Apply threshold logic (Bright / Dark detection)
-
-    // TODO 8:
-    // Print brightness status
-
-    // TODO 9:
-    // Add delay (500ms or 1 second)
+ // write your code here
+ int ldrRaw = analogRead(LDR_PIN);
+ int lightPerecentage = map(ldrRaw, 0, 1023, 0, 100);
+ Serial.println("LDRRaw");
+ Serial.println(ldrRaw);
+ Serial.println(" | light: ");
+ Serial.println(lightPerecentage);
+ Serial.println("%");
+ delay(500);
 }
