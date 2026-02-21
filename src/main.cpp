@@ -25,7 +25,6 @@
  * analog input reads a voltage between 0 and Vcc. Use A0 (LDR_PIN) by default.
  */
 #define LDR_PIN A0
-
 /**
  * @brief Arduino initialization routine.
  *
