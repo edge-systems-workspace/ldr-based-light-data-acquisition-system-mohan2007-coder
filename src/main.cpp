@@ -54,6 +54,7 @@ void setup() {
  * to 0-100%
  */
 void loop() {
+
   //Read the raw analog value from the LDR
   int rawValue = analogRead(LDR_PIN);
   // Convert the raw value to a percentage (0-100%)
