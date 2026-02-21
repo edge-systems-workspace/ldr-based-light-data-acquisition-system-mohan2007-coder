@@ -58,7 +58,7 @@ void loop() {
   int rawValue = analogRead(LDR_PIN);
   // Convert the raw value to a percentage (0-100%)
   int percentage = map(rawValue, 0, 1023, 0, 100);
-  // Print the raw value and percentage to the serial console
+  //Print the raw value and percentage to the serial console
   Serial.print("Raw Value: ");
   Serial.print(rawValue);
   Serial.print(" | Light Intensity: ");
