@@ -51,7 +51,7 @@ void setup() {
  *
  * The raw value is read using analogRead, which returns a value between 0
  * (0V) and 1023 (Vcc). The percentage is calculated by mapping this range
- * to 0-100%.
+ * to 0-100%
  */
 void loop() {
   //Read the raw analog value from the LDR
