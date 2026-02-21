@@ -35,37 +35,36 @@
  * @note This function is called once by the Arduino framework during startup.
  */
 void setup() {
- // write your initialization code here
- Serial.begin(9600);
- pinMode(LDR_PIN,INPUT);
- Serial.println("LDR test");
-
+  // Initialize serial communication at 9600 baud rate
+  Serial.begin(9600);
+  // Configure the LDR pin as an input (optional, as analogRead does this)
+  pinMode(LDR_PIN, INPUT);
+  // Print a banner to indicate the sketch has started
+  Serial.println("LDR Light Intensity Monitor Started");
 }
 
 /**
- * @brief Main Arduino loop that reads and reports light intensity.
+ * @brief Main loop function.
  *
- * Reads the raw analog value from the LDR pin using analogRead(). The raw
- * reading (0..1023) is converted to a simple percentage (0..100) using
- * map(). The raw value and percentage are printed to the serial console.
- * The loop then waits 500 ms before repeating.
+ * Continuously reads the analog value from the LDR, converts it to a
+ * percentage, and prints both the raw and percentage values to the serial
+ * console every 500 milliseconds.
  *
- * @detail
- * - Raw range: 0 (dark) .. 1023 (bright) depending on wiring and divider.
- * - The map() call inverts the percentage so that 0 -> 100% (bright) and
- *   1023 -> 0% (dark) to provide an intuitive "Light: X%" readout.
- *
- * @note Adjust the map() parameters if your voltage divider produces a
- * different range or polarity.
+ * The raw value is read using analogRead, which returns a value between 0
+ * (0V) and 1023 (Vcc). The percentage is calculated by mapping this range
+ * to 0-100%.
  */
 void loop() {
- // write your code here
- int ldrRaw = analogRead(LDR_PIN);
- int lightPerecentage = map(ldrRaw, 0, 1023, 0, 100);
- Serial.println("LDRRaw");
- Serial.println(ldrRaw);
- Serial.println(" | light: ");
- Serial.println(lightPerecentage);
- Serial.println("%");
- delay(500);
+  // Read the raw analog value from the LDR
+  int rawValue = analogRead(LDR_PIN);
+  // Convert the raw value to a percentage (0-100%)
+  int percentage = map(rawValue, 0, 1023, 0, 100);
+  // Print the raw value and percentage to the serial console
+  Serial.print("Raw Value: ");
+  Serial.print(rawValue);
+  Serial.print(" | Light Intensity: ");
+  Serial.print(percentage);
+  Serial.println("%");
+  // Wait for 500 milliseconds before the next reading
+  delay(500);
 }
